@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pac-Man Game</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #000;
+        }
+        #gameBoard {
+            border: 2px solid blue;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="gameBoard" width="400" height="400"></canvas>
+    <script>
+        const canvas = document.getElementById('gameBoard');
+        const ctx = canvas.getContext('2d');
+
+        const CELL_SIZE = 20;
+        const GRID_WIDTH = canvas.width / CELL_SIZE;
+        const GRID_HEIGHT = canvas.height / CELL_SIZE;
+
+        let pacman = { x: 1, y: 1, direction: 'right' };
+        let ghosts = [
+            { x: 18, y: 1, color: 'red' },
+            { x: 18, y: 18, color: 'pink' }
+        ];
+        let dots = [];
+        let score = 0;
+
+        function initDots() {
+            for (let x = 0; x < GRID_WIDTH; x++) {
+                for (let y = 0; y < GRID_HEIGHT; y++) {
+                    if (x % 2 === 1 && y % 2 === 1) {
+                        dots.push({ x, y });
+                    }
+                }
+            }
+        }
+
+        function drawPacman() {
+            ctx.beginPath();
+            ctx.arc(pacman.x * CELL_SIZE + CELL_SIZE / 2, pacman.y * CELL_SIZE + CELL_SIZE / 2, CELL_SIZE / 2, 0.2 * Math.PI, 1.8 * Math.PI);
+            ctx.lineTo(pacman.x * CELL_SIZE + CELL_SIZE / 2, pacman.y * CELL_SIZE + CELL_SIZE / 2);
+            ctx.fillStyle = 'yellow';
+            ctx.fill();
+        }
+
+        function drawGhosts() {
+            ghosts.forEach(ghost => {
+                ctx.beginPath();
+                ctx.arc(ghost.x * CELL_SIZE + CELL_SIZE / 2, ghost.y * CELL_SIZE + CELL_SIZE / 2, CELL_SIZE / 2, 0, 2 * Math.PI);
+                ctx.fillStyle = ghost.color;
+                ctx.fill();
+            });
+        }
+
+        function drawDots() {
+            ctx.fillStyle = 'white';
+            dots.forEach(dot => {
+                ctx.beginPath();
+                ctx.arc(dot.x * CELL_SIZE + CELL_SIZE / 2, dot.y * CELL_SIZE + CELL_SIZE / 2, CELL_SIZE / 6, 0, 2 * Math.PI);
+                ctx.fill();
+            });
+        }
+
+        function drawScore() {
+            ctx.fillStyle = 'white';
+            ctx.font = '20px Arial';
+            ctx.fillText(`Score: ${score}`, 10, 30);
+        }
+
+        function update() {
+            // Move Pac-Man
+            if (pacman.direction === 'right') pacman.x = (pacman.x + 1) % GRID_WIDTH;
+            if (pacman.direction === 'left') pacman.x = (pacman.x - 1 + GRID_WIDTH) % GRID_WIDTH;
+            if (pacman.direction === 'down') pacman.y = (pacman.y + 1) % GRID_HEIGHT;
+            if (pacman.direction === 'up') pacman.y = (pacman.y - 1 + GRID_HEIGHT) % GRID_HEIGHT;
+
+            // Check for dot collision
+            dots = dots.filter(dot => {
+                if (dot.x === pacman.x && dot.y === pacman.y) {
+                    score += 10;
+                    return false;
+                }
+                return true;
+            });
+
+            // Move ghosts (simple random movement)
+            ghosts.forEach(ghost => {
+                const directions = ['right', 'left', 'down', 'up'];
+                const randomDirection = directions[Math.floor(Math.random() * directions.length)];
+                if (randomDirection === 'right') ghost.x = (ghost.x + 1) % GRID_WIDTH;
+                if (randomDirection === 'left') ghost.x = (ghost.x - 1 + GRID_WIDTH) % GRID_WIDTH;
+                if (randomDirection === 'down') ghost.y = (ghost.y + 1) % GRID_HEIGHT;
+                if (randomDirection === 'up') ghost.y = (ghost.y - 1 + GRID_HEIGHT) % GRID_HEIGHT;
+
+                // Check for ghost collision
+                if (ghost.x === pacman.x && ghost.y === pacman.y) {
+                    alert('Game Over! Your score: ' + score);
+                    resetGame();
+                }
+            });
+
+            // Check win condition
+            if (dots.length === 0) {
+                alert('You Win! Your score: ' + score);
+                resetGame();
+            }
+        }
+
+        function resetGame() {
+            pacman = { x: 1, y: 1, direction: 'right' };
+            ghosts = [
+                { x: 18, y: 1, color: 'red' },
+                { x: 18, y: 18, color: 'pink' }
+            ];
+            score = 0;
+            initDots();
+        }
+
+        function gameLoop() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            update();
+            drawDots();
+            drawPacman();
+            drawGhosts();
+            drawScore();
+            requestAnimationFrame(gameLoop);
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') pacman.direction = 'right';
+            if (e.key === 'ArrowLeft') pacman.direction = 'left';
+            if (e.key === 'ArrowDown') pacman.direction = 'down';
+            if (e.key === 'ArrowUp') pacman.direction = 'up';
+        });
+
+        initDots();
+        gameLoop();
+    </script>
+</body>
+</html>

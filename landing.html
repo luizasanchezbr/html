@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .sidebar {
+            width: 250px;
+            min-height: 100vh;
+        }
+        .nav-link {
+            color: #fff;
+        }
+        .nav-link:hover, .nav-link.active {
+            background-color: #007bff;
+        }
+        .content-section {
+            display: none;
+        }
+        .content-section.active {
+            display: block;
+        }
+        .sidebar-toggle {
+            cursor: pointer;
+            user-select: none;
+            transition: transform 0.3s ease;
+        }
+        .sidebar.collapsed {
+            width: 60px;
+        }
+        .sidebar.collapsed .sidebar-toggle {
+            transform: rotate(180deg);
+        }
+        .sidebar.collapsed .sidebar-title,
+        .sidebar.collapsed .nav-link span {
+            display: none;
+        }
+        .sidebar-toggle, .nav-link i {
+            transition: transform 0.3s ease;
+        }
+        .footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            height: 60px;
+            line-height: 60px;
+            background-color: #f5f5f5;
+            text-align: center;
+        }
+        .content-wrapper {
+            padding-bottom: 60px; /* Add padding to prevent content from being hidden by footer */
+        }
+    </style>
+</head>
+<body>
+    <div class="d-flex">
+        <!-- Sidebar -->
+        <div class="bg-dark text-light p-3 sidebar" id="sidebar">
+            <h3 class="mb-4 d-flex justify-content-between align-items-center">
+                <span class="sidebar-title">Sidebar</span>
+                <span class="sidebar-toggle" id="sidebarToggle">&gt;&gt;</span>
+            </h3>
+            <ul class="nav flex-column" id="sidebar-menu">
+                <!-- Menu items will be inserted here by JavaScript -->
+            </ul>
+        </div>
+
+        <!-- Main content -->
+        <div class="flex-grow-1 p-4 content-wrapper">
+            <div id="dashboard-section" class="content-section active">
+                <h2 class="mb-4">Dashboard</h2>
+                <div class="row" id="budget-cards">
+                    <!-- Budget cards will be inserted here by JavaScript -->
+                </div>
+            </div>
+            <div id="employee-section" class="content-section">
+                <h2 class="mb-4">Employee</h2>
+                <p>Employee content goes here.</p>
+            </div>
+            <div id="orders-section" class="content-section">
+                <h2 class="mb-4">Orders</h2>
+                <p>Orders content goes here.</p>
+            </div>
+            <div id="products-section" class="content-section">
+                <h2 class="mb-4">Products</h2>
+                <p>Products content goes here.</p>
+            </div>
+            <div id="customers-section" class="content-section">
+                <h2 class="mb-4">Customers</h2>
+                <p>Customers content goes here.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <span class="text-muted">&copy; 2023 Your Company Name. All rights reserved.</span>
+        </div>
+    </footer>
+
+    <script>
+        const menuItems = [
+            { name: 'Dashboard', icon: 'home' },
+            { name: 'Employee', icon: 'user' },
+            { name: 'Orders', icon: 'shopping-cart' },
+            { name: 'Products', icon: 'package' },
+            { name: 'Customers', icon: 'users' }
+        ];
+
+        const sidebarMenu = document.getElementById('sidebar-menu');
+        const budgetCards = document.getElementById('budget-cards');
+
+        // Populate sidebar menu
+        menuItems.forEach(item => {
+            const li = document.createElement('li');
+            li.className = 'nav-item mb-2';
+            li.innerHTML = `
+                <a href="#" class="nav-link" data-name="${item.name.toLowerCase()}">
+                    <i data-lucide="${item.icon}" class="mr-2"></i>
+                    <span>${item.name}</span>
+                </a>
+            `;
+            sidebarMenu.appendChild(li);
+        });
+
+        // Create budget cards
+        for (let i = 0; i < 6; i++) {
+            const card = document.createElement('div');
+            card.className = i < 4 ? 'col-md-6 col-lg-3 mb-4' : 'col-md-6 mb-4';
+            card.innerHTML = `
+                <div class="card ${i < 4 ? 'bg-warning text-dark' : 'bg-secondary text-light'}">
+                    <div class="card-body">
+                        <h5 class="card-title">Budget</h5>
+                        <h2 class="card-text">$750.90</h2>
+                        <p class="card-text">
+                            <small class="text-success">13%</small> Since last month
+                        </p>
+                    </div>
+                </div>
+            `;
+            budgetCards.appendChild(card);
+        }
+
+        // Handle sidebar item clicks
+        sidebarMenu.addEventListener('click', (e) => {
+            if (e.target.closest('.nav-link')) {
+                e.preventDefault();
+                const navLink = e.target.closest('.nav-link');
+                const sectionName = navLink.getAttribute('data-name');
+                
+                // Update active link
+                document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+                navLink.classList.add('active');
+                
+                // Show/hide content sections
+                document.querySelectorAll('.content-section').forEach(section => {
+                    section.classList.remove('active');
+                });
+                document.getElementById(`${sectionName}-section`).classList.add('active');
+            }
+        });
+
+        // Handle sidebar toggle
+        const sidebar = document.getElementById('sidebar');
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        sidebarToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('collapsed');
+            sidebarToggle.textContent = sidebar.classList.contains('collapsed') ? '<<' : '>>';
+        });
+
+        // Initialize Lucide icons
+        lucide.createIcons();
+    </script>
+</body>
+</html>

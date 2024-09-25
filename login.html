@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Form</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #F5F5DC; /* Light beige background */
+        }
+        .login-form {
+            width: 300px;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            opacity: 0; /* Start with the form invisible */
+            transition: opacity 0.5s ease-in-out;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+            transition: background-color 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-form" id="loginForm">
+        <h2 class="text-center mb-4">Login</h2>
+        <form>
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Username" required>
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control" placeholder="Password" required>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Log In</button>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const loginForm = document.getElementById('loginForm');
+            
+            // Function to fade in the form
+            function fadeIn(element) {
+                let opacity = 0;
+                element.style.display = 'block';
+                
+                const timer = setInterval(function() {
+                    if (opacity >= 1) {
+                        clearInterval(timer);
+                    }
+                    element.style.opacity = opacity;
+                    opacity += 0.1;
+                }, 50);
+            }
+
+            // Trigger the fade-in animation
+            fadeIn(loginForm);
+        });
+    </script>
+</body>
+</html>
