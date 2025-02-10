@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flat Design Example</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Flatpickr CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4"><i class="fas fa-paint-brush me-2"></i>Flat Design Example</h1>
+
+        <!-- Carousel -->
+        <div id="flatCarousel" class="carousel slide mb-5" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="carousel-content bg-primary text-white">
+                        <i class="fas fa-star fa-3x mb-3"></i>
+                        <h2>Welcome to Our Flat Design</h2>
+                        <p>Explore the simplicity and elegance of flat design.</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="carousel-content bg-success text-white">
+                        <i class="fas fa-laptop fa-3x mb-3"></i>
+                        <h2>Modern and Clean</h2>
+                        <p>Experience a sleek and minimalist interface.</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="carousel-content bg-info text-white">
+                        <i class="fas fa-mobile-alt fa-3x mb-3"></i>
+                        <h2>Responsive and Flexible</h2>
+                        <p>Our design adapts to all screen sizes.</p>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#flatCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#flatCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+
+        <!-- Datepicker -->
+        <div class="mb-5">
+            <h2 class="mb-3"><i class="far fa-calendar-alt me-2"></i>Selecione uma Data</h2>
+            <div class="input-group">
+                <span class="input-group-text"><i class="fas fa-calendar"></i></span>
+                <input type="text" id="flatpickr" class="form-control" placeholder="Escolha uma data">
+            </div>
+        </div>
+
+        <!-- Sample content -->
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title"><i class="fas fa-lightbulb me-2"></i>Feature 1</h5>
+                        <p class="card-text">This is a sample feature showcasing flat design principles.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title"><i class="fas fa-cog me-2"></i>Feature 2</h5>
+                        <p class="card-text">Another example of how flat design can be simple yet effective.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title"><i class="fas fa-chart-bar me-2"></i>Feature 3</h5>
+                        <p class="card-text">Demonstrating the versatility of flat design in various components.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Flatpickr JS -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <!-- Custom JS -->
+    <script src="script.js"></script>
+</body>
+</html>

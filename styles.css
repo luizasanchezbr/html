@@ -1,0 +1,58 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f5f5f5;
+}
+
+.container {
+    max-width: 960px;
+}
+
+h1, h2 {
+    color: #333;
+}
+
+/* Carousel styles */
+.carousel-content {
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+}
+
+/* Card styles */
+.card {
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card-body {
+    padding: 20px;
+}
+
+.card-title {
+    color: #2c3e50;
+    font-weight: bold;
+}
+
+/* Flatpickr custom styles */
+.flatpickr-input {
+    background-color: #fff;
+    border: 2px solid #3498db;
+    border-radius: 4px;
+    padding: 10px;
+    font-size: 16px;
+}
+
+.flatpickr-day.selected {
+    background-color: #3498db;
+    border-color: #3498db;
+}
