@@ -1,0 +1,66 @@
+# Dependências
+node_modules/
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+package-lock.json
+yarn.lock
+
+# Arquivos de ambiente
+.env
+.env.local
+.env.*.local
+
+# Arquivos de build e dist
+dist/
+build/
+out/
+
+# Arquivos do sistema Windows
+Thumbs.db
+desktop.ini
+ehthumbs.db
+$RECYCLE.BIN/
+
+# Arquivos do Visual Studio Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+.history/
+
+# Arquivos temporários
+*.log
+*.tmp
+*.temp
+.DS_Store
+
+# Arquivos de cache
+.cache/
+.temp/
+.tmp/
+
+# Arquivos de debug
+debug.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Arquivos de configuração local
+*.local
+
+# Arquivos de teste
+coverage/
+.nyc_output/
+
+# Electron
+.electron-builder.env
+dist_electron/
+
+# Outros
+*.bak
+*.swp
+*.swo
+*~
