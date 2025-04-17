@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard de Vendas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-gray-100 font-sans">
+    <!-- Header -->
+    <header class="bg-white shadow p-4 flex justify-between items-center">
+      <h1 class="text-2xl font-bold text-gray-800">Painel de Vendas</h1>
+      <span class="text-gray-500">Bem-vindo(a), Gerente!</span>
+    </header>
+
+    <main class="p-6">
+      <!-- Cards de Métricas -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+        <div class="bg-white p-4 rounded-2xl shadow">
+          <h2 class="text-gray-500 text-sm">Faturamento</h2>
+          <p class="text-2xl font-bold text-green-600">R$ 124.000</p>
+        </div>
+        <div class="bg-white p-4 rounded-2xl shadow">
+          <h2 class="text-gray-500 text-sm">Vendas</h2>
+          <p class="text-2xl font-bold text-blue-600">865</p>
+        </div>
+        <div class="bg-white p-4 rounded-2xl shadow">
+          <h2 class="text-gray-500 text-sm">Clientes novos</h2>
+          <p class="text-2xl font-bold text-purple-600">48</p>
+        </div>
+      </div>
+
+      <!-- Gráfico (placeholder) + Produtos mais vendidos -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+        <div class="bg-white p-4 rounded-2xl shadow h-64 flex items-center justify-center text-gray-400">
+          [Gráfico de Vendas (inserir gráfico com Chart.js ou D3)]
+        </div>
+        <div class="bg-white p-4 rounded-2xl shadow">
+          <h2 class="text-lg font-semibold mb-4">Produtos mais vendidos</h2>
+          <ul class="space-y-2">
+            <li class="flex justify-between">
+              <span>Camisa Polo</span><span>120 vendas</span>
+            </li>
+            <li class="flex justify-between">
+              <span>Calça Jeans</span><span>98 vendas</span>
+            </li>
+            <li class="flex justify-between">
+              <span>Tênis Esportivo</span><span>75 vendas</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Tabela de Últimos Pedidos -->
+      <div class="bg-white p-4 rounded-2xl shadow">
+        <h2 class="text-lg font-semibold mb-4">Últimos pedidos</h2>
+        <table class="w-full text-left table-auto">
+          <thead class="bg-gray-100 text-gray-600">
+            <tr>
+              <th class="p-2">Cliente</th>
+              <th class="p-2">Produto</th>
+              <th class="p-2">Valor</th>
+              <th class="p-2">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-b">
+              <td class="p-2">João Silva</td>
+              <td class="p-2">Camisa Polo</td>
+              <td class="p-2">R$ 120</td>
+              <td class="p-2 text-green-600">Pago</td>
+            </tr>
+            <tr class="border-b">
+              <td class="p-2">Ana Lima</td>
+              <td class="p-2">Calça Jeans</td>
+              <td class="p-2">R$ 180</td>
+              <td class="p-2 text-yellow-600">Pendente</td>
+            </tr>
+            <tr class="border-b">
+              <td class="p-2">Carlos Souza</td>
+              <td class="p-2">Tênis Esportivo</td>
+              <td class="p-2">R$ 290</td>
+              <td class="p-2 text-green-600">Pago</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </body>
+</html>
