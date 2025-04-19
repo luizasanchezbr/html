@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Simples</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #D3D3D3; /* Light gray background */
+        }
+        .calculator {
+            background-color: #F0F8FF; /* AliceBlue calculator */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3); /* Black shadow */
+        }
+        .display {
+            width: 100%;
+            height: 50px;
+            font-size: 24px;
+            text-align: right;
+            margin-bottom: 10px;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            color: black; /* Black text */
+        }
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(6, 40px);
+            gap: 5px;
+        }
+        .button {
+            width: 40px;
+            height: 40px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            background-color: #E6E6FA; /* Lavender */
+            color: #000; /* Black text */
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .button:hover {
+            background-color: #ADD8E6; /* Light blue */
+        }
+        .button.operator {
+            background-color: #D8BFD8; /* Thistle */
+        }
+        .button.operator:hover {
+            background-color: #B0C4DE; /* LightSteelBlue */
+        }
+        .button.clear {
+            background-color: #F08080; /* LightCoral */
+        }
+        .button.clear:hover {
+            background-color: #CD5C5C; /* IndianRed */
+        }
+        .button.equal {
+            background-color: #808080; /* Gray */
+            grid-column: span 1;
+        }
+        .button.equal:hover {
+            background-color: #1E90FF; /* DodgerBlue */
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <input type="text" class="display" id="display" disabled>
+        <div id="message" style="text-align: center; color: red;"></div>
+        <div class="buttons">
+            <button class="button" onclick="appendNumber('3.14159')">π</button>
+            <button class="button" onclick="appendNumber('2.71828')">e</button>
+            <button class="button" onclick="appendOperator('(')">(</button>
+            <button class="button" onclick="appendOperator(')')">)</button>
+          
+            <button class="button operator" onclick="appendOperator('/')">/</button>
+            <button class="button clear" onclick="clearDisplay()">C</button>
+
+            <button class="button" onclick="appendNumber('1')">1</button>
+            <button class="button" onclick="appendNumber('2')">2</button>
+            <button class="button" onclick="appendNumber('3')">3</button>
+            <button class="button" onclick="appendNumber('4')">4</button>
+            <button class="button" onclick="appendNumber('5')">5</button>
+            <button class="button" onclick="appendNumber('6')">6</button>
+
+            <button class="button" onclick="appendNumber('7')">7</button>
+            <button class="button" onclick="appendNumber('8')">8</button>
+            <button class="button" onclick="appendNumber('9')">9</button>
+        
+
+            <button class="button" onclick="appendNumber('0')">0</button>
+            <button class="button" onclick="appendNumber('.')">.</button>
+
+            <button class="button operator" onclick="appendOperator('*')">*</button>
+
+            <button class="button operator" onclick="appendOperator('-')">-</button>
+
+      
+            <button class="button operator" onclick="appendOperator('+')">+</button>
+
+   
+            <button class="button equal" onclick="calculateResult()">=</button>
+
+            <button class="button" onclick="appendOperator('sin')">sin</button>
+            <button class="button" onclick="appendOperator('cos(')">cos</button>
+            <button class="button" onclick="appendOperator('tan(')">tan</button>
+            <button class="button" onclick="appendOperator('sinh(')">sinh</button>
+            <button class="button" onclick="appendOperator('cosh(')">cosh</button>
+            <button class="button" onclick="appendOperator('tanh(')">tanh</button>
+
+            <button class="button" onclick="appendOperator('asin(')">asin</button>
+            <button class="button" onclick="appendOperator('acos(')">acos</button>
+            <button class="button" onclick="appendOperator('atan(')">atan</button>
+            
+            <button class="button" onclick="appendOperator('log(')">log</button>
+            <button class="button" onclick="appendOperator('sqrt(')">sqrt</button>
+            <button class="button" onclick="appendOperator('^')">x^y</button>
+        </div>
+    </div>
+
+    <script>
+        const display = document.getElementById('display');
+        let stack = [];
+
+        function appendNumber(value) {
+            if (display.value === 'Erro') {
+                display.value = '';
+            }
+            display.value += value + ' '; // Adiciona espaço para separar os números
+        }
+
+        function appendOperator(operator) {
+            if (operator === 'sin(') {
+                setMessage("Insira o valor em graus e depois clique em sin");
+            }
+            display.value += operator + ' '; // Adiciona espaço para separar os operadores
+        }
+
+        function clearDisplay() {
+            display.value = '';
+            stack = [];
+        }
+
+        function setMessage(message) {
+            document.getElementById('message').innerText = message;
+        }
+
+        function calculateResult() {
+            setMessage("");
+            try {
+                const tokens = display.value.split(' ').filter(token => token !== '');
+                for (const token of tokens) {
+                    if (!isNaN(parseFloat(token))) {
+                        stack.push(parseFloat(token));
+                    } else {
+                        if (token === '+') {
+                            const b = stack.pop();
+                            const a = stack.pop();
+                            stack.push(a + b);
+                        } else if (token === '-') {
+                            const b = stack.pop();
+                            const a = stack.pop();
+                            stack.push(a - b);
+                        } else if (token === '*') {
+                            stack.push(stack.pop() * stack.pop());
+                        } else if (token === '/') {
+                            const b = stack.pop();
+                            const a = stack.pop();
+                            stack.push(a / b);
+                        } else if (token === '^') {
+                            const b = stack.pop();
+                            const a = stack.pop();
+                            stack.push(Math.pow(a, b));
+                        } else if (token === 'sin(') {
+                            const a = stack.pop();
+                            stack.push(Math.sin(a));
+                        } else if (token === 'cos(') {
+                            const a = stack.pop();
+                            stack.push(Math.cos(a));
+                        } else if (token === 'tan(') {
+                            const a = stack.pop();
+                            stack.push(Math.tan(a));
+                        } else if (token === 'sinh(') {
+                             const a = stack.pop();
+                            stack.push(Math.sinh(a));
+                        } else if (token === 'cosh(') {
+                            const a = stack.pop();
+                            stack.push(Math.cosh(a));
+                        } else if (token === 'tanh(') {
+                            const a = stack.pop();
+                            stack.push(Math.tanh(a));
+                        } else if (token === 'asin(') {
+                            const a = stack.pop();
+                            stack.push(Math.asin(a));
+                        } else if (token === 'acos(') {
+                            const a = stack.pop();
+                            stack.push(Math.acos(a));
+                        } else if (token === 'atan(') {
+                            const a = stack.pop();
+                            stack.push(Math.atan(a));
+                        } else if (token === 'log(') {
+                             const a = stack.pop();
+                            stack.push(Math.log10(a));
+                        } else if (token === 'sqrt(') {
+                             const a = stack.pop();
+                            stack.push(Math.sqrt(a));
+                        }
+                    }
+                }
+                if (stack.length > 0) {
+                    display.value = stack.pop();
+                } else {
+                    display.value = 'Erro';
+                    setMessage("Erro no cálculo");
+                }
+            } catch (error) {
+                display.value = 'Erro';
+            } finally {
+                stack = [];
+            }
+        }
+    </script>
+</body>
+</html>
